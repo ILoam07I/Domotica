@@ -4,7 +4,7 @@ package robot.decorator;
 import observer_main_center.event.Event;
 import robot.Robot;
 
-//Primer decorador siempre!!!
+//Último decorador siempre = primera capa de la seboya!!!
 public class PowerDecorator extends AbsRobotDecoratorImpl {
     
     private boolean powered;
@@ -22,7 +22,7 @@ public class PowerDecorator extends AbsRobotDecoratorImpl {
     public void performAction(Event event) {
         
         if (powered) {
-            wrapee.performAction(event);
+            wrappee.performAction(event);
         }       
     }
     

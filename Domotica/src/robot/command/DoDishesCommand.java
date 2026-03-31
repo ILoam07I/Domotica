@@ -1,25 +1,20 @@
 
 package robot.command;
 
-import java.util.ArrayList;
 import robot.DishwasherRobot;
 
 public class DoDishesCommand extends AbsCommandImpl <DishwasherRobot> {
     
     private String mode;
 
-    public DoDishesCommand(String mode) {
-        target = new ArrayList<>();
+    public DoDishesCommand(String mode, DishwasherRobot target) {
+        super(target);
         this.mode = mode;
     }
 
     @Override
     public void execute() {
-        
-        for (DishwasherRobot robot : target) {
-            robot.getRobotExtension().lockRobot();
-            robot.doDishes(mode);
-        }
+        target.doDishes(mode);
     }
     
 }

@@ -22,7 +22,7 @@ public abstract class AbsRobotBuilderImpl implements RobotBuilder {
 
     @Override
     public void addDecorator(Function<Robot, Robot> wrapper) {
-        wrapper.apply(robot);
+        wrapper.apply(robot);   //robot -> new AbsRobotDecorator(robot)
     }
 
     @Override

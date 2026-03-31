@@ -38,7 +38,7 @@ public class VigilanceDecorator extends AbsRobotDecoratorImpl {
             handler.accept(event);
         }
          
-        wrapee.performAction(event);
+        wrappee.performAction(event);
     }
     
     public void initVigilanceMode() {

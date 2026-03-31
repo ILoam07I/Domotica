@@ -6,18 +6,30 @@ import robot.Robot;
 
 public abstract class AbsRobotDecoratorImpl extends AbsRobotImpl {
     
-    protected Robot wrapee;
+    protected Robot wrappee;
 
     public AbsRobotDecoratorImpl(Robot wrapee) {
-        this.wrapee = wrapee;
+        this.wrappee = wrapee;
     }
 
     public Robot getWrapee() {
-        return wrapee;
+        return wrappee;
     }
 
     public void setWrapee(Robot wrapee) {
-        this.wrapee = wrapee;
+        this.wrappee = wrapee;
+    }
+
+    public <T> T getModule(Class<T> type) {
+        
+        if (type.isInstance(this)) {
+            return type.cast(this);
+            
+        } else if (wrappee instanceof AbsRobotDecoratorImpl absRobotDecoratorImpl) {
+            return absRobotDecoratorImpl.getModule(type);
+            
+        }
+        return null;
     }
    
 }
