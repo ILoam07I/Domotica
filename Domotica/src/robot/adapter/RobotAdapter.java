@@ -15,7 +15,7 @@ public class RobotAdapter <E extends Event> implements EventListener <E> {
 
     @Override
     public void actualize(E event) {
-        robot.process(event);
+        robot.performAction(event);
     }
     
 }

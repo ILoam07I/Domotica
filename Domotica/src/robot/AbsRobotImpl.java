@@ -1,28 +1,39 @@
 
 package robot;
 
-import java.util.ArrayList;
-import java.util.List;
-import observer_main_center.event.Event;
+import robot.state.RobotContext;
 
 public abstract class AbsRobotImpl implements Robot {
     
-    private List<Robot> functionalities;
-    
-    public AbsRobotImpl() {
-        functionalities = new ArrayList<>();
+    protected String modelName;
+    protected String id;
+    protected RobotContext robotExtension;
+
+    @Override
+    public String getModelName() {
+        return modelName;
+    }
+    @Override
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
     }
 
     @Override
-    public boolean addFunctionality(Robot functionality) {
-        return functionalities.add(functionality);
+    public String getId() {
+        return id;
+    }
+    @Override
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
-    public void process(Event event) {
-        for (Robot func : functionalities) {
-            func.process(event);
-        }
-    }   
+    public RobotContext getRobotExtension() {
+        return robotExtension;
+    }
+    @Override
+    public void setRobotExtension(RobotContext robotExtension) {
+        this.robotExtension = robotExtension;
+    }
     
 }
