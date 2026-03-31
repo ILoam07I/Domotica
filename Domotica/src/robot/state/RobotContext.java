@@ -25,4 +25,8 @@ public class RobotContext {
         robotState.release();
     }
     
+    public boolean isLocked() {
+        return robotState.canHandleCommand();
+    }
+    
 }

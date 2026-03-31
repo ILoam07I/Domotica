@@ -14,6 +14,7 @@ public class StartOvenCommand extends AbsCommandImpl <OvenRobot> {
 
     @Override
     public void execute() {
+        target.getRobotExtension().lockRobot();
         target.heat(temperature);
     }
     

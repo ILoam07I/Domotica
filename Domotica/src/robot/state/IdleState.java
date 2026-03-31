@@ -9,8 +9,6 @@ public class IdleState extends AbsStateImpl {
 
     @Override
     public boolean canHandleCommand() {
-        robotExtension.setRobotState(new LockedState(robotExtension));
-        
         return true;
     }
 

@@ -11,6 +11,11 @@ public class PowerOnCommand extends AbsCommandImpl <AbsRobotDecoratorImpl> {
     }
 
     @Override
+    public boolean canExecute() {
+        return !target.getModule(PowerDecorator.class).isPowered();
+    }
+
+    @Override
     public void execute() {        
         PowerDecorator powerModule = target.getModule(PowerDecorator.class);
         

@@ -9,6 +9,10 @@ public abstract class AbsRobotImpl implements Robot {
     protected String id;
     protected RobotContext robotExtension;
 
+    public AbsRobotImpl() {
+        robotExtension = new RobotContext();
+    }
+
     @Override
     public String getModelName() {
         return modelName;

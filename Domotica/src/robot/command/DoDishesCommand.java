@@ -14,6 +14,7 @@ public class DoDishesCommand extends AbsCommandImpl <DishwasherRobot> {
 
     @Override
     public void execute() {
+        target.getRobotExtension().lockRobot();
         target.doDishes(mode);
     }
     

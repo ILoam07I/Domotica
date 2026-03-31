@@ -14,6 +14,7 @@ public class DoLaundryCommand extends AbsCommandImpl <WashingMachineRobot> {
 
     @Override
     public void execute() {
+        target.getRobotExtension().lockRobot();
         target.doLaundry(program);
     }
     

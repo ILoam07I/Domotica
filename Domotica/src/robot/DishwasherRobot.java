@@ -5,6 +5,10 @@ import observer_main_center.event.Event;
 
 public class DishwasherRobot extends AbsRobotImpl {
 
+    public DishwasherRobot() {
+        super();
+    } 
+
     @Override
     public void performAction(Event event) {}
     

@@ -11,4 +11,9 @@ public abstract class AbsCommandImpl <R extends Robot> implements Command <R> {
         this.target = target;
     }
 
+    @Override
+    public boolean canExecute() {
+        return target.getRobotExtension().isLocked();
+    }
+    
 }
