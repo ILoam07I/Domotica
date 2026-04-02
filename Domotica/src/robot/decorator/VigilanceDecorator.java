@@ -1,52 +1,59 @@
 
 package robot.decorator;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Consumer;
-import observer_main_center.event.Event;
-import observer_main_center.event.HomeAloneEvent;
-import observer_main_center.event.HomeGuardedEvent;
 import robot.Robot;
+import robot.command.Command;
 
 public class VigilanceDecorator extends AbsRobotDecoratorImpl {
 
-    private final Map<Class<? extends Event>, Consumer<Event>> handlers = new HashMap<>();
-    private boolean vigilance;
+    private boolean vigilant;
+    private boolean recording;
 
     public VigilanceDecorator(Robot wrapee) {
         super(wrapee);
-        this.vigilance = false;
-        
-        initHandlers();
-    }
-
-    public boolean isVigilance() {
-        return vigilance;
-    }
-    
-    public void initHandlers() {
-        handlers.put(HomeAloneEvent.class, e -> initVigilanceMode());
-        handlers.put(HomeGuardedEvent.class, e -> initRestMode());
+        this.vigilant = false;
+        this.recording = false;
     }
 
     @Override
-    public void performAction(Event event) {
-        Consumer<Event> handler = handlers.get(event.getClass());
-        
-        if (handler != null) {
-            handler.accept(event);
-        }
-         
-        wrappee.performAction(event);
+    public void performAction(Command command) {
+        wrappee.performAction(command);
+    }
+
+    public boolean isVigilant() {
+        return vigilant;
+    }
+
+    public boolean isRecording() {
+        return recording;
     }
     
     public void initVigilanceMode() {
-        vigilance = true;
+        vigilant = true;
     }
     
     public void initRestMode() {
-        vigilance = false;
+        vigilant = false;
+    }
+    
+    public void initRecording() {
+        recording = true;
+    }
+    
+    public void stopRecording() {
+        recording = false;
+    }
+
+    @Override
+    public void forceShutOff() {
+        vigilant = false;
+        recording = false;
+        wrappee.forceShutOff();
+    }
+
+    @Override
+    public String describe() {
+        return wrappee.describe() + "\n\t- Vigilance[ " + (vigilant ? "VIGILANT" : "RESTING") + " ]";
     }
     
 }

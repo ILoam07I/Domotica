@@ -1,8 +1,10 @@
 
 package robot;
 
+import java.util.List;
 import observer_main_center.event.Event;
-import robot.state.RobotContext;
+import robot.command.Command;
+import robot.state.State;
 
 public interface Robot {
     
@@ -12,9 +14,17 @@ public interface Robot {
     public String getId();
     public void setId(String id);
     
-    public RobotContext getRobotExtension();
-    public void setRobotExtension(RobotContext robotExtension);
+    public List<Event> getEvents();
+    public void setEvents(List<Event> getEvents);
     
-    public void performAction(Event event);
+    public State getRobotState();    
+    public void changeToEcoMode();
+    public void changeToNightMode();
+    public void changeToNormalMode();
     
+    //  Implementaciones de Chain of Responsibility.
+    public void performAction(Command command);
+    public void forceShutOff();
+    public String describe();
+
 }

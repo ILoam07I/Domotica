@@ -1,9 +1,10 @@
 
 package robot.builder;
 
+import java.util.List;
 import java.util.function.Function;
+import observer_main_center.event.Event;
 import robot.Robot;
-import robot.state.RobotContext;
 
 public abstract class AbsRobotBuilderImpl implements RobotBuilder {
     
@@ -16,8 +17,8 @@ public abstract class AbsRobotBuilderImpl implements RobotBuilder {
     }
 
     @Override
-    public void setRobotExtension() {
-        robot.setRobotExtension(new RobotContext());
+    public void setEvents(List<Event> events) {
+        robot.setEvents(events);
     }
 
     @Override

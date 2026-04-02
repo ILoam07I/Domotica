@@ -1,19 +1,13 @@
 
 package robot.command;
 
-import robot.Robot;
+import robot.AbsRobotImpl;
 
-public abstract class AbsCommandImpl <R extends Robot> implements Command <R> {
+public abstract class AbsCommandImpl <D extends AbsRobotImpl> implements Command <D> {
     
-    protected R target;
-
-    public AbsCommandImpl(R target) {
-        this.target = target;
-    }
-
     @Override
-    public boolean canExecute() {
-        return target.getRobotExtension().isLocked();
+    public boolean canExecute(D target) {
+        return true;
     }
     
 }

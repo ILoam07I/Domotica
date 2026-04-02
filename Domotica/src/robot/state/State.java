@@ -3,12 +3,16 @@ package robot.state;
 
 public interface State {
     
-    public boolean canHandleCommand();
+    /*  Un SpecificState se podria haber referenciado desde cualquier decorador,
+        no se ha hecho por simplificar.
+    */
     
-    public int handleBattery();
-
-    public void lock();
+    public int getOvenTemperatureParam();
+    public String getLaundryParam();
+    public String getNoiseParam();
     
-    public void release();
+    public State changeToEcoMode();
+    public State changeToNightMode();
+    public State changeToNormalMode();
     
 }

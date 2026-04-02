@@ -1,18 +1,18 @@
 
 package observer_main_center.event;
 
-import robot.Robot;
+import robot.command.Command;
 
-public abstract class AbsEventImpl implements Event {
+public abstract class AbsEventImpl <C extends Command> implements Event <C> {
     
-    protected Robot robot;
+    protected C command;
     
-    public AbsEventImpl(Robot robot) {
-        this.robot = robot;
+    public AbsEventImpl(C command) {
+        this.command = command;
     }
 
-    public Robot getRobot() {
-        return robot;
+    public C getCommand() {
+        return command;
     }
     
 }

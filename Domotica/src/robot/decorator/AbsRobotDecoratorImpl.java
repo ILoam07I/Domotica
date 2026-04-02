@@ -8,17 +8,19 @@ public abstract class AbsRobotDecoratorImpl extends AbsRobotImpl {
     
     protected Robot wrappee;
 
-    public AbsRobotDecoratorImpl(Robot wrapee) {
-        this.wrappee = wrapee;
+    public AbsRobotDecoratorImpl(Robot wrappee) {
+        this.wrappee = wrappee;
     }
 
     public Robot getWrapee() {
         return wrappee;
     }
 
-    public void setWrapee(Robot wrapee) {
-        this.wrappee = wrapee;
+    public void setWrapee(Robot wrappee) {
+        this.wrappee = wrappee;
     }
+    
+    
 
     public <T> T getModule(Class<T> type) {
         

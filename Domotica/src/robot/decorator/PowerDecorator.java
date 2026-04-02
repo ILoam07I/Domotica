@@ -1,10 +1,11 @@
 
 package robot.decorator;
 
-import observer_main_center.event.Event;
 import robot.Robot;
+import robot.command.Command;
+import robot.command.PowerOff;
+import robot.command.PowerOn;
 
-//Último decorador siempre = primera capa de la seboya!!!
 public class PowerDecorator extends AbsRobotDecoratorImpl {
     
     private boolean powered;
@@ -17,22 +18,34 @@ public class PowerDecorator extends AbsRobotDecoratorImpl {
     public boolean isPowered() {
         return powered;
     }
-
-    @Override
-    public void performAction(Event event) {
-        
-        if (powered) {
-            wrappee.performAction(event);
-        }       
-    }
     
     public void turnOn() {
         powered = true;
     }
-    
-    public void turnOff() {
-        robotExtension.releaseRobot();
+
+    @Override
+    public void performAction(Command command) {
+        
+        if (powered) {           
+            if (command.getClass() == PowerOff.class) {
+                command.execute(this);
+            }
+            wrappee.performAction(command);
+            
+        } else if (command.getClass() == PowerOn.class) {
+            command.execute(this);
+        }    
+    }
+
+    @Override
+    public void forceShutOff() {
         powered = false;
+        wrappee.forceShutOff();
+    }
+    
+    @Override
+    public String describe() {
+        return wrappee.describe() + "\n\t Power[ " + (powered ? "ON" : "OFF") + " ]";
     }
     
 }

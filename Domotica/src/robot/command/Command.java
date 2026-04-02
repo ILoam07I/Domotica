@@ -1,12 +1,18 @@
 
 package robot.command;
 
-import robot.Robot;
+import robot.AbsRobotImpl;
 
-public interface Command <R extends Robot> {
+public interface Command <D extends AbsRobotImpl> {
     
-    public boolean canExecute();
+    /*  En nuestro caso, los comandos contienen un poco de lógica de negocio, se podria haber
+        delegado a una clase Receiver, pero aprovechamos que los comandos están ya acoplados
+        a un decorador concreto.
+    */
+    public String getActionDescription();
     
-    public void execute();
+    public boolean canExecute(D target);
+    
+    public void execute(D target);
     
 }

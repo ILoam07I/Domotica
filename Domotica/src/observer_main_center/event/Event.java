@@ -1,10 +1,10 @@
 
 package observer_main_center.event;
 
-import robot.Robot;
+import robot.command.Command;
 
-public interface Event {
+public interface Event <C extends Command> {
     
-    public Robot getRobot();
+    public C getCommand();
     
 }

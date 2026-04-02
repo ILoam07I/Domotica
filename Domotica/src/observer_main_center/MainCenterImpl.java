@@ -13,10 +13,12 @@ public class MainCenterImpl implements MainCenter {
     
     private static MainCenterImpl instance;
     
-    private Map<Class<? extends Event>, List<EventListener<? extends Event>>> listeners;
+    private Map<Class<? extends Event>, List<EventListener>> listeners;
+    private List<EventListener> robots;
     
     private MainCenterImpl() {
         listeners = new HashMap<>();
+        robots = new ArrayList<>();
     }
     
     public static MainCenterImpl getInstance() {
@@ -27,16 +29,22 @@ public class MainCenterImpl implements MainCenter {
         
         return instance;
     }
+
+    @Override
+    public List<EventListener> getRobots() {
+        return robots;
+    }
     
     @Override
     public <E extends Event> void register(Class<E> eventType, EventListener<E> robot) {
         listeners.computeIfAbsent(eventType, e -> new ArrayList<>())
                 .add(robot);
+        robots.add(robot);
     }
     
     @Override
     public <E extends Event> void publish(E event) {
-        List<EventListener<? extends Event>> interested = listeners.getOrDefault(event.getClass(), Collections.emptyList());
+        List<EventListener> interested = listeners.getOrDefault(event.getClass(), Collections.emptyList());
         
         for (EventListener<? extends Event> listener : interested) {
             ((EventListener<E>)listener).actualize(event);

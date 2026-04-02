@@ -2,13 +2,20 @@
 package robot.state;
 
 public abstract class AbsStateImpl implements State {
-    
-    protected static final int BATTERY_USAGE = 5;
-    
-    protected RobotContext robotExtension;
-    
-    public AbsStateImpl(RobotContext robotExtension) {
-        this.robotExtension = robotExtension;
+
+    @Override
+    public State changeToEcoMode() {
+        return new EcoMode();
+    }
+
+    @Override
+    public State changeToNightMode() {
+        return new NightMode();
+    }
+
+    @Override
+    public State changeToNormalMode() {
+        return new NormalMode();
     }
     
 }
