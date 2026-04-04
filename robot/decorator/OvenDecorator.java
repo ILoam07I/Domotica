@@ -3,6 +3,8 @@ package robot.decorator;
 
 import robot.Robot;
 import robot.command.Command;
+import robot.command.InitHeat;
+import robot.command.StopHeat;
 
 public class OvenDecorator extends AbsRobotDecoratorImpl {
     
@@ -19,20 +21,36 @@ public class OvenDecorator extends AbsRobotDecoratorImpl {
 
     @Override
     public void performAction(Command command) {
-        wrappee.performAction(command);
+        if (command.getClass() == InitHeat.class) {
+            command.execute(this);
+            
+        } else if (command.getClass() == StopHeat.class) {
+            command.execute(this);
+            
+        } else {
+            wrappee.performAction(command);
+        }
     }  
        
     public void initHeat() {
+        System.out.println("\t--> Empezando a calentar a " + robotState.getOvenTemperatureParam() + "ºC.");
+        
         ovenLocked = true;
+        System.out.println("\t\tHorno bloqueado.");
     }
     
     public void stopHeat() {
+        System.out.println("\t--> Parando horno.");
+        
         ovenLocked = false;
+        System.out.println("\t\tHorno desbloqueado.");
     }
 
     @Override
     public void forceShutOff() {
-        ovenLocked = false;
+        if (ovenLocked) {
+            stopHeat();
+        }
         wrappee.forceShutOff();
     }
 

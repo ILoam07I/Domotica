@@ -12,7 +12,7 @@ public class ChangeToEcoMode extends AbsCommandImpl {
 
     @Override
     public String getActionDescription() {
-        return "Cambiar a modo Eco.";
+        return "[eco] Cambiar a modo Eco.";
     }
     
 }

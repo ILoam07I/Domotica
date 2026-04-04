@@ -1,26 +1,28 @@
-
 package robot.command;
 
-import robot.decorator.PowerDecorator;
+import robot.AbsRobotImpl;
+import robot.module.PowerModule;
 
-public class PowerOn extends AbsCommandImpl <PowerDecorator> {
+public class PowerOn extends Command<AbsRobotImpl> {
 
     @Override
-    public void execute(PowerDecorator target) {
-
-        if (canExecute(target)) {
-            target.turnOn();
+    public void execute(AbsRobotImpl target) {
+        // El comando mete la mano en la mochila y saca el módulo de energía
+        PowerModule power = target.getModule(PowerModule.class);
+        
+        if (power != null) {
+            power.turnOn();
         }
     }
 
     @Override
-    public boolean canExecute(PowerDecorator target) {
+    public boolean canExecute(AbsRobotImpl target) {
         return !target.isPowered();
     }
 
     @Override
     public String getActionDescription() {
-        return "Encender.";
+        return "[on] Encender.";
     }
     
 }

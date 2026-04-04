@@ -20,7 +20,7 @@ public class InitVigilance extends AbsCommandImpl <VigilanceDecorator> {
 
     @Override
     public String getActionDescription() {
-        return "Activar vigilancia.";
+        return "[vigilance] Activar vigilancia.";
     }
     
 }

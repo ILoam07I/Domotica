@@ -20,7 +20,7 @@ public class InitLaundry extends AbsCommandImpl <WashingMachineDecorator> {
 
     @Override
     public String getActionDescription() {
-        return "Comenzar lavado.";
+        return "[init_laundry] Comenzar lavado.";
     }
     
 }

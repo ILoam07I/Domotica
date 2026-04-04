@@ -12,7 +12,7 @@ public class ChangeToNightMode extends AbsCommandImpl {
 
     @Override
     public String getActionDescription() {
-        return "Cambiar a modo Noche.";
+        return "[night] Cambiar a modo Noche.";
     }
     
 }
