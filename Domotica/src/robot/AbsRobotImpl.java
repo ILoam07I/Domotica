@@ -2,9 +2,12 @@
 package robot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import observer_main_center.event.Event;
 import robot.command.Command;
+import robot.decorator.AbsRobotDecoratorImpl;
 import robot.state.NormalMode;
 import robot.state.State;
 
@@ -14,10 +17,12 @@ public abstract class AbsRobotImpl implements Robot {
     protected String id;
     protected State robotState;
     protected List<? extends Event> events;
+    protected Map<Class<? extends AbsRobotDecoratorImpl>, AbsRobotDecoratorImpl> modules;
 
     public AbsRobotImpl() {
         robotState = new NormalMode();
         events = new ArrayList<>();
+        modules = new HashMap<>();
     }
 
     @Override
@@ -50,6 +55,16 @@ public abstract class AbsRobotImpl implements Robot {
     @Override
     public void setEvents(List<? extends Event> events) {
         this.events = events;
+    }
+
+    @Override
+    public <M extends AbsRobotDecoratorImpl> void addModule(M module) {
+        modules.put(module.getClass(), module);
+    }
+
+    @Override
+    public <M extends AbsRobotDecoratorImpl> M getModule(Class<M> type) {
+        return type.cast(modules.get(type));
     }
 
     @Override
@@ -93,7 +108,12 @@ public abstract class AbsRobotImpl implements Robot {
     }
     
     @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+    
+    @Override
     public String toString() {
-        return id + " " + modelName;
+        return "\n" + id + " " + modelName;
     }
 }

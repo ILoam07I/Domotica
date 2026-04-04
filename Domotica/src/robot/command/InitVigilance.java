@@ -1,21 +1,27 @@
 
 package robot.command;
 
+import robot.AbsRobotImpl;
 import robot.decorator.VigilanceDecorator;
 
 public class InitVigilance extends AbsCommandImpl <VigilanceDecorator> {
 
     @Override
-    public void execute(VigilanceDecorator target) {
+    public void execute(AbsRobotImpl target) {
+        VigilanceDecorator module = target.getModule(VigilanceDecorator.class);
         
-        if (canExecute(target)) {
-            target.initVigilanceMode();
+        if (canExecute(module)) {
+            module.initVigilanceMode();
+            
+        } else {
+            System.out.println("!! Comando " + getActionDescription() + 
+                    " No pudo realizarse en: " + target.toString() + " --> Ya en Modo Vigilancia.");
         }
     }
 
     @Override
-    public boolean canExecute(VigilanceDecorator target) {
-        return !target.isVigilant();
+    public boolean canExecute(VigilanceDecorator module) {
+        return !module.isVigilant();
     }
 
     @Override

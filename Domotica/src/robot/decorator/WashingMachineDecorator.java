@@ -3,8 +3,6 @@ package robot.decorator;
 
 import robot.Robot;
 import robot.command.Command;
-import robot.command.InitLaundry;
-import robot.command.StopLaundry;
 
 public class WashingMachineDecorator extends AbsRobotDecoratorImpl {
     
@@ -16,16 +14,8 @@ public class WashingMachineDecorator extends AbsRobotDecoratorImpl {
     }
 
     @Override
-    public void performAction(Command command) {
-        if (command.getClass() == InitLaundry.class) {
-            command.execute(this);
-            
-        } else if (command.getClass() == StopLaundry.class) {
-            command.execute(this);
-            
-        } else {        
-            wrappee.performAction(command);
-        }
+    public void performAction(Command command) {   
+        wrappee.performAction(command);
     }
 
     public boolean isWmlocked() {
@@ -33,14 +23,16 @@ public class WashingMachineDecorator extends AbsRobotDecoratorImpl {
     }
     
     public void initLaundry() {
-        System.out.println("\t--> Empezando lavado " + robotState.getLaundryParam() + robotState.getNoiseParam());
+        System.out.print("\t--> Empezando lavado " + this.getRobotState().getLaundryParam() + robotState.getNoiseParam());
+        pauseWithDots();
         
         wmlocked = true;
         System.out.println("\t\tBloqueando lavadora.");
     }
     
     public void stopLaundry() {
-        System.out.println("\t--> Parando lavado.");
+        System.out.print("\t--> Parando lavado.");
+        pauseWithDots();
         
         wmlocked = false;
         System.out.println("\t\tDesbloqueando lavadora.");
@@ -56,7 +48,7 @@ public class WashingMachineDecorator extends AbsRobotDecoratorImpl {
 
     @Override
     public String describe() {
-        return wrappee.describe() + "\n\t- Wahsing Machine[ " + (wmlocked ? "DOING LAUNDRY" : "RESTING") + " ]";
+        return wrappee.describe() + "\n\t- Washing M\t[ " + (wmlocked ? "DOING LAUNDRY" : "RESTING") + " ]";
     }   
       
 }

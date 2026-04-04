@@ -11,7 +11,7 @@ import java.util.Set;
 import observer_main_center.event.Event;
 import observer_main_center.event.event_listener.EventListener;
 
-public class MainCenterImpl implements MainCenter {
+public class MainCenterImpl implements MainCenter, EventListenerContainer, ActionProvider {
     
     private static MainCenterImpl instance;
     
@@ -33,17 +33,31 @@ public class MainCenterImpl implements MainCenter {
     }
     
     @Override
-    public <E extends Event> void register(E event, EventListener robot) {
-        robots.add(robot);
-        listeners.computeIfAbsent(event, e -> new ArrayList<>()).add(robot);
+    public <E extends Event> boolean register(EventListener robot, List<? extends Event> events) {
+        boolean added = robots.add(robot);
+        
+        if (added) {
+            for (Event event : events) {
+                listeners.computeIfAbsent(event, e -> new ArrayList<>()).add(robot);
+            }
+        }
+        
+        return added;
     }
 
-    public void unregister(EventListener robot) {
-        robots.remove(robot);
+    public boolean unregister(EventListener robot) {
+        boolean removed = robots.remove(robot);
         
-        for (List<EventListener> values : listeners.values()) {
-            values.remove(robot);
+        if (removed) {
+            System.out.println(robot.toString());
+            robot.getRobot().forceShutOff();
+
+            for (List<EventListener> values : listeners.values()) {
+                values.remove(robot);
+            }
         }
+        
+        return removed;
     }
     
     @Override
@@ -61,21 +75,8 @@ public class MainCenterImpl implements MainCenter {
     }
 
     @Override
-    public <E extends Event> void initAction(E event) {
-        publish(event);
-    }
-
-    @Override
     public List<EventListener> getSubject() {
         return List.copyOf(robots);
     }
 
-    @Override
-    public void add(EventListener robot) {}
-
-    @Override
-    public void remove(EventListener robot) {
-        unregister(robot);
-    }
-    
 }

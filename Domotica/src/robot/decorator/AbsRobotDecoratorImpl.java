@@ -28,6 +28,11 @@ public abstract class AbsRobotDecoratorImpl extends AbsRobotImpl {
     public boolean equals(Object obj) {
         return wrappee.equals(obj);
     }
+    
+    @Override
+    public int hashCode() {
+        return wrappee.hashCode();
+    }
 
     @Override
     public int compareTo(Robot o) {
@@ -83,10 +88,32 @@ public abstract class AbsRobotDecoratorImpl extends AbsRobotImpl {
     public void performAction(Command command) {
         wrappee.performAction(command);
     }
+    
+    protected void pauseWithDots() {
+        try {
+            for (int i = 0; i < 3; i++) {
+                System.out.print(".");
+                Thread.sleep(500);
+            }
+            System.out.println();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
     @Override
     public String toString() {
         return wrappee.toString();
+    }
+
+    @Override
+    public <M extends AbsRobotDecoratorImpl> M getModule(Class<M> type) {
+        return wrappee.getModule(type);
+    }
+
+    @Override
+    public <M extends AbsRobotDecoratorImpl> void addModule(M module) {
+        wrappee.addModule(module);
     }
    
 }

@@ -22,7 +22,10 @@ public class PluggedSensorBuilder extends AbsRobotBuilderImpl {
 
     @Override
     public void addDecorator() {
-        robot = new VigilanceDecorator(robot);
+        VigilanceDecorator vigilanceModule = new VigilanceDecorator(robot);
+        robot = vigilanceModule;
+        
+        robot.addModule(vigilanceModule);
     }
     
 }

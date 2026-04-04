@@ -21,8 +21,13 @@ public class SmartSensorBuilder extends AbsRobotBuilderImpl {
 
     @Override
     public void addDecorator() {
-        robot = new VigilanceDecorator(robot);
-        robot = new PowerDecorator(robot);
+        VigilanceDecorator vigilanceModule = new VigilanceDecorator(robot);
+        robot = vigilanceModule;
+        PowerDecorator powerModule = new PowerDecorator(robot);
+        robot = powerModule;
+        
+        robot.addModule(vigilanceModule);
+        robot.addModule(powerModule);
     }
     
 }

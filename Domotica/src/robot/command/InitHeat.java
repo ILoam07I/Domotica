@@ -1,21 +1,27 @@
 
 package robot.command;
 
+import robot.AbsRobotImpl;
 import robot.decorator.OvenDecorator;
 
 public class InitHeat extends AbsCommandImpl <OvenDecorator> {
 
     @Override
-    public void execute(OvenDecorator target) {
+    public void execute(AbsRobotImpl target) {       
+        OvenDecorator ovenModule = target.getModule(OvenDecorator.class);
         
-        if (canExecute(target)) {
-            target.initHeat();
+        if (canExecute(ovenModule)) {
+            ovenModule.initHeat();
+            
+        } else {
+            System.out.println("!! Comando " + getActionDescription() + 
+                    " No pudo realizarse en: " + target.toString() + " --> Horno ya Bloqueado.");
         }
     }
 
     @Override
-    public boolean canExecute(OvenDecorator target) {
-        return !target.isOvenLocked();
+    public boolean canExecute(OvenDecorator module) {
+        return !module.isOvenLocked();
     }
 
     @Override

@@ -1,20 +1,19 @@
 
 package application.menu;
 
-import application.mediator.RobotSelector;
 import java.util.Set;
+import observer_main_center.MainCenterImpl;
 import observer_main_center.event.Event;
-import observer_main_center.event.event_listener.Actionable;
 import observer_main_center.event.event_listener.EventListener;
 import ui.UIProvider;
 
 public class SpecificMenu implements Menu {
     
     private UIProvider ui;
-    private Actionable model;
+    private MainCenterImpl model;
     private EventListener specificModel;
 
-    public SpecificMenu(UIProvider ui, Actionable model, EventListener specificModel) {
+    public SpecificMenu(UIProvider ui, MainCenterImpl model, EventListener specificModel) {
         this.ui = ui;
         this.model = model;
         this.specificModel = specificModel;
@@ -28,13 +27,24 @@ public class SpecificMenu implements Menu {
         while (!exit) {
             Set<? extends Event> events = specificModel.getActions();
             
-            ui.showMessage("\n\n--- MENU DE EVENTOS ESPECIFICOS PARA " + specificModel.toString() + " ---");
+            ui.showMessage("\n\n--- MENU DE EVENTOS ESPECIFICOS  ---");
             
             command = ui.showSpecificEventsMenu(events);
             
             switch (command) {               
                 case "remove":
-                    model.remove(specificModel);
+                    ui.showMessage("\n--> Borrando robot.");
+                    
+                    if (model.unregister(specificModel)) {                    
+                        ui.showMessage("\n... Robot borrado correctamente.");
+                        
+                    } else {
+                        ui.showMessage("\n... Error en el borrado.");
+                    }
+                    
+                    ui.showConfirmation();
+                    
+                    exit = true;
                     
                     break;
                 
@@ -47,8 +57,10 @@ public class SpecificMenu implements Menu {
                     
                     for (Event event : events) {
                         if (command.equals(event.getEventInitializer())) {
-                            specificModel.initAction(event);
+                            specificModel.actualize(event);
                             found = true;
+                            
+                            ui.showConfirmation();
                             
                             break;
                         }

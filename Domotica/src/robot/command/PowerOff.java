@@ -1,21 +1,27 @@
 
 package robot.command;
 
+import robot.AbsRobotImpl;
 import robot.decorator.PowerDecorator;
 
 public class PowerOff extends AbsCommandImpl <PowerDecorator> {
     
     @Override
-    public void execute(PowerDecorator target) {
+    public void execute(AbsRobotImpl target) {
+        PowerDecorator module = target.getModule(PowerDecorator.class);
         
-        if (canExecute(target)) {
-            target.forceShutOff();
+        if (canExecute(module)) {
+            module.forceShutOff();
+            
+        } else {
+            System.out.println("!! Comando " + getActionDescription() + 
+                    " No pudo realizarse en: " + target.toString() + " --> Ya Apagado.");
         }
     }
 
     @Override
-    public boolean canExecute(PowerDecorator target) {
-        return target.isPowered();
+    public boolean canExecute(PowerDecorator module) {
+        return module.isPowered();
     }
 
     @Override

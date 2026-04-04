@@ -20,7 +20,8 @@ public class PowerDecorator extends AbsRobotDecoratorImpl {
     }
     
     public void turnOn() {
-        System.out.println("\t--> Iniciando secuencia de arranque.");
+        System.out.print("\t--> Iniciando secuencia de arranque.");
+        pauseWithDots();
         
         powered = true;
         System.out.println("\t\tEncendido.");
@@ -37,14 +38,20 @@ public class PowerDecorator extends AbsRobotDecoratorImpl {
                 wrappee.performAction(command);
             }
             
-        } else if (command.getClass() == PowerOn.class) {
-            command.execute(this);
+        } else {
+            if (command.getClass() == PowerOn.class) {
+                command.execute(this);
+                
+            } else {
+                System.out.println("\t\t!! El robot esta apagado. Debe encenderse primero.");
+            }
         }    
     }
 
     @Override
     public void forceShutOff() {
-        System.out.println("\t--> Iniciando secuencia de apagado.");
+        System.out.print("\t--> Iniciando secuencia de apagado.");
+        pauseWithDots();
         
         powered = false;
         wrappee.forceShutOff();
@@ -52,7 +59,7 @@ public class PowerDecorator extends AbsRobotDecoratorImpl {
     
     @Override
     public String describe() {
-        return wrappee.describe() + "\n\t Power[ " + (powered ? "ON" : "OFF") + " ]";
+        return wrappee.describe() + "\n\t- Power\t\t[ " + (powered ? "ON" : "OFF") + " ]";
     }
     
 }

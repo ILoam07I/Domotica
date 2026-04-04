@@ -11,8 +11,8 @@ public interface Command <D extends AbsRobotImpl> {
     */
     public String getActionDescription();
     
-    public boolean canExecute(D target);
+    public boolean canExecute(D module);
     
-    public void execute(D target);
+    public void execute(AbsRobotImpl target);
     
 }

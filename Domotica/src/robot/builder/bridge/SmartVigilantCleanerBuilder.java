@@ -30,9 +30,16 @@ public class SmartVigilantCleanerBuilder extends AbsRobotBuilderImpl {
 
     @Override
     public void addDecorator() {
-        robot = new VigilanceDecorator(robot);
-        robot = new BatteryDecorator(robot);
-        robot = new PowerDecorator(robot);
+        VigilanceDecorator vigilanceModule = new VigilanceDecorator(robot);
+        robot = vigilanceModule;
+        BatteryDecorator batteryModule = new BatteryDecorator(robot);
+        robot = batteryModule;
+        PowerDecorator powerModule = new PowerDecorator(robot);
+        robot = powerModule;
+        
+        robot.addModule(vigilanceModule);
+        robot.addModule(batteryModule);
+        robot.addModule(powerModule);
     }
     
 }

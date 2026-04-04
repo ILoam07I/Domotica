@@ -1,7 +1,6 @@
 
 package robot.adapter;
 
-import java.util.List;
 import java.util.Set;
 import observer_main_center.event.Event;
 import observer_main_center.event.event_listener.EventListener;
@@ -22,33 +21,38 @@ public class RobotAdapter implements EventListener {
     }
 
     @Override
-    public <E extends Event> void actualize(E event) {       
-        System.out.println(robot.toString() + "  -- Iniciando acciones: ");
+    public <E extends Event> void actualize(E event) {
         
-        for (Command command : event.getCommands()) {
-            robot.performAction(command);
-        }       
+        if (robot.getEvents().contains(event)) {
+            System.out.println(robot.toString() + "  -- Iniciando acciones: ");
+
+            for (Command command : event.getCommands()) {
+                
+                robot.performAction(command);
+            }
+        }
     }
 
     @Override
     public Set<? extends Event> getActions() {
         return Set.copyOf(robot.getEvents());
     }
-
+    
     @Override
-    public <E extends Event> void initAction(E event) {
-        actualize(event);
+    public boolean equals(Object o) {
+        EventListener adapter = (EventListener) o;
+        
+        return this.robot.equals(adapter.getRobot());
     }
-
+    
     @Override
-    public List<EventListener> getSubject() {
-        return List.of(this);
+    public int hashCode() {
+        return robot.hashCode();
     }
-
+    
     @Override
-    public void add(EventListener robot) {}
-
-    @Override
-    public void remove(EventListener robot) {}
+    public String toString() {
+        return robot.toString();
+    }
     
 }

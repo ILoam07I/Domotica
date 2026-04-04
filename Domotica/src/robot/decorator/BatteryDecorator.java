@@ -10,6 +10,7 @@ import robot.decorator.strategy.SavingUsageBehavior;
 public class BatteryDecorator extends AbsRobotDecoratorImpl {
     
     private static final int TRESHOLD = 20;
+    private static final int USAGE = 5;
     
     private int batteryLevel;
     private BatteryMode batteryStrategy;
@@ -30,7 +31,7 @@ public class BatteryDecorator extends AbsRobotDecoratorImpl {
     
     @Override
     public void performAction(Command command) {
-        int usage = batteryStrategy.calculateBatteryUsage(5);
+        int usage = batteryStrategy.calculateBatteryUsage(USAGE);
         
         if (usage < batteryLevel) {
             batteryLevel -= usage;
@@ -41,21 +42,24 @@ public class BatteryDecorator extends AbsRobotDecoratorImpl {
             }
             
             wrappee.performAction(command);
+            
+        } else {
+            System.out.println("\t\t!! Bateria muy baja, no se pudo realizar la accion.");
+            charge();
         }
-        
-        System.out.println("\t\t!! Bateria muy baja, no se pudo realizar la accion.");
-        charge();
     }
     
     public void charge() {
-        System.out.println("\t\t!! Recargando bateria.");
+        System.out.print("\t\t!! Recargando bateria.");
+        pauseWithDots();
+        
         batteryLevel = 100;
+        System.out.println("\t\tBateria recargada.");
         batteryStrategy = new NormalUsageBehavior();
     }
 
     @Override
-    public void forceShutOff() {
-        
+    public void forceShutOff() {       
         if (batteryLevel <= TRESHOLD) {
             charge();
         }
@@ -65,7 +69,7 @@ public class BatteryDecorator extends AbsRobotDecoratorImpl {
 
     @Override
     public String describe() {
-        return wrappee.describe() + "\n\t- Battery[ " + batteryLevel + "% ]";
+        return wrappee.describe() + "\n\t- Battery\t[ " + batteryLevel + "% ]";
     }
 
 }

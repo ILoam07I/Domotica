@@ -3,8 +3,6 @@ package robot.decorator;
 
 import robot.Robot;
 import robot.command.Command;
-import robot.command.InitHeat;
-import robot.command.StopHeat;
 
 public class OvenDecorator extends AbsRobotDecoratorImpl {
     
@@ -21,19 +19,12 @@ public class OvenDecorator extends AbsRobotDecoratorImpl {
 
     @Override
     public void performAction(Command command) {
-        if (command.getClass() == InitHeat.class) {
-            command.execute(this);
-            
-        } else if (command.getClass() == StopHeat.class) {
-            command.execute(this);
-            
-        } else {
-            wrappee.performAction(command);
-        }
+        wrappee.performAction(command);
     }  
        
     public void initHeat() {
-        System.out.println("\t--> Empezando a calentar a " + robotState.getOvenTemperatureParam() + "ºC.");
+        System.out.print("\t--> Empezando a calentar a " + this.getRobotState().getOvenTemperatureParam() + "C.");
+        pauseWithDots();
         
         ovenLocked = true;
         System.out.println("\t\tHorno bloqueado.");
@@ -41,6 +32,7 @@ public class OvenDecorator extends AbsRobotDecoratorImpl {
     
     public void stopHeat() {
         System.out.println("\t--> Parando horno.");
+        pauseWithDots();
         
         ovenLocked = false;
         System.out.println("\t\tHorno desbloqueado.");
@@ -56,7 +48,7 @@ public class OvenDecorator extends AbsRobotDecoratorImpl {
 
     @Override
     public String describe() {
-        return wrappee.describe() + "\n\t- Oven[ " + (ovenLocked ? "HEATING" : "RESTING") + " ]";
+        return wrappee.describe() + "\n\t- Oven\t\t[ " + (ovenLocked ? "HEATING" : "RESTING") + " ]";
     }
     
 }

@@ -34,13 +34,13 @@ public class Director <B extends RobotBuilder> {
         subscriber = new SubscriberFacade();
     }
     
-    public void buildRobot(String model, String id) {        
+    public boolean buildRobot(String model, String id) {        
         builder.reset();
         builder.setCredentials(model, id);
         builder.setEvents();
         builder.addDecorator();
         
-        subscriber.subscribe(builder.build());
+        return subscriber.subscribe(builder.build());
     }
     
 }

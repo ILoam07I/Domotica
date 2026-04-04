@@ -34,9 +34,16 @@ public class SmartVigilantOvenBuilder extends AbsRobotBuilderImpl {
 
     @Override
     public void addDecorator() {
-        robot = new OvenDecorator(robot);
-        robot = new VigilanceDecorator(robot);
-        robot = new PowerDecorator(robot);
+        OvenDecorator ovenModule = new OvenDecorator(robot);
+        robot = ovenModule;
+        VigilanceDecorator vigilanceModule = new VigilanceDecorator(robot);
+        robot = vigilanceModule;
+        PowerDecorator powerModule = new PowerDecorator(robot);
+        robot = powerModule;
+        
+        robot.addModule(ovenModule);
+        robot.addModule(vigilanceModule);
+        robot.addModule(powerModule);
     }
     
 }

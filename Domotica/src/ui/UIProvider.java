@@ -43,7 +43,7 @@ public class UIProvider {
         
         System.out.println(option + "- [back] Cancelar.");
         
-        System.out.print("Seleccione un comando disponible: ");
+        System.out.print("\nSeleccione un comando disponible: ");
         
         return scanner.nextLine();
     }
@@ -62,23 +62,54 @@ public class UIProvider {
         
         System.out.println(option + "- [back] Cancelar.");
         
-        System.out.print("Seleccione un comando disponible: ");
+        System.out.print("\nSeleccione un comando disponible: ");
         
         return scanner.nextLine();
     }
     
     public String showRobotSelectionMenu(List<EventListener> robots) {
         scanner.reset();
-        int option = 1;
         
         for (EventListener robot : robots) {
             System.out.println(robot.getRobot().describe());
         }
+        System.out.println("\n\n[back] Cancelar");
         
-        System.out.println("Seleccione una id disponible: ");
+        System.out.print("\nSeleccione una id disponible: ");
         
         return scanner.nextLine();
     }
+    
+    public String showCreationalMenu(Set<String> keySet) {
+        scanner.reset();
+        int option = 1;
+        
+        for (String key : keySet) {
+            System.out.println(option + "- [" + key + "]");
+            option++;
+        }
+        System.out.println(option + "- [back] Cancelar");
+        
+        System.out.print("\nSeleccione un comando disponible: ");
+        
+        return scanner.nextLine();
+    }
+    
+    public String provideRobotID() {
+        scanner.reset();
+        
+        System.out.print("Introduzca una id valida: ");
+        
+        return scanner.nextLine();
+    }
+    
+    public String provideRobotModel() {
+        scanner.reset();
+        
+        System.out.print("Introduzca un modelo valido: ");
+        
+        return scanner.nextLine();
+    }  
     
     public void showMessage(String message) {
         System.out.println(message);
@@ -88,44 +119,12 @@ public class UIProvider {
         System.out.println("Opcion invalida.");
     }
     
-    public String provideCommandMenu() {   
+    public void showConfirmation() {
         scanner.reset();
         
-        System.out.print("Seleccione un comando: ");
+        System.out.print("\nPresione cualquier tecla para continuar: ");
         
-        return scanner.nextLine();
-    }
-    
-    public String provideRobotSelectionMenu() {
-        scanner.reset();
-        
-        System.out.print("Seleccione un robot por su id: ");
-        
-        return scanner.nextLine();
-    }
-    
-    public String provideRobotCreationOption() {
-        scanner.reset();
-        
-        System.out.print("Seleccione una opcion de creacion: ");
-        
-        return scanner.nextLine();
-    }
-    
-    public String provideRobotID() {
-        scanner.reset();
-        
-        System.out.print("Introduzca la id del nuevo robot: ");
-        
-        return scanner.nextLine();
-    }
-    
-    public String provideRobotModel() {
-        scanner.reset();
-        
-        System.out.print("Introduzca el modelo del nuevo robot: ");
-        
-        return scanner.nextLine();
+        scanner.nextLine();
     }
     
 }

@@ -3,8 +3,6 @@ package robot.decorator;
 
 import robot.Robot;
 import robot.command.Command;
-import robot.command.InitRest;
-import robot.command.InitVigilance;
 
 public class VigilanceDecorator extends AbsRobotDecoratorImpl {
 
@@ -19,15 +17,7 @@ public class VigilanceDecorator extends AbsRobotDecoratorImpl {
 
     @Override
     public void performAction(Command command) {
-        if (command.getClass() == InitVigilance.class) {
-            command.execute(this);
-            
-        } else if (command.getClass() == InitRest.class) {
-            command.execute(this);
-            
-        } else {
-            wrappee.performAction(command);
-        }
+        wrappee.performAction(command);
     }
 
     public boolean isVigilant() {
@@ -39,14 +29,16 @@ public class VigilanceDecorator extends AbsRobotDecoratorImpl {
     }
     
     public void initVigilanceMode() {
-        System.out.println("\t--> Iniciando modo vigilancia " + robotState.getLaundryParam() + ".");
+        System.out.print("\t--> Iniciando modo vigilancia " + robotState.getLaundryParam() + ".");
+        pauseWithDots();
         
         vigilant = true;
         System.out.println("\t\tModo vigilancia activado.");
     }
     
     public void initRestMode() {
-        System.out.println("\t--> Iniciando modo descanso.");
+        System.out.print("\t--> Iniciando modo descanso.");
+        pauseWithDots();
         
         vigilant = false;
         System.out.println("\t\tModo descanso activado.");
@@ -73,7 +65,7 @@ public class VigilanceDecorator extends AbsRobotDecoratorImpl {
 
     @Override
     public String describe() {
-        return wrappee.describe() + "\n\t- Vigilance[ " + (vigilant ? "VIGILANT" : "RESTING") + " ]";
+        return wrappee.describe() + "\n\t- Vigilance\t[ " + (vigilant ? "VIGILANT" : "RESTING") + " ]";
     }
     
 }

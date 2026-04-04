@@ -29,8 +29,13 @@ public class SmartWashingMachineBuilder extends AbsRobotBuilderImpl {
 
     @Override
     public void addDecorator() {
-        robot = new WashingMachineDecorator(robot);
-        robot = new PowerDecorator(robot);
+        WashingMachineDecorator washingMachineModule = new WashingMachineDecorator(robot);
+        robot = washingMachineModule;
+        PowerDecorator powerModule = new PowerDecorator(robot);
+        robot = powerModule;
+        
+        robot.addModule(washingMachineModule);
+        robot.addModule(powerModule);
     }
    
 }

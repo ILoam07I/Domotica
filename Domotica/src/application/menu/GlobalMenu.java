@@ -3,18 +3,18 @@ package application.menu;
 
 import application.mediator.RobotSelector;
 import java.util.Set;
+import observer_main_center.MainCenterImpl;
 import observer_main_center.event.Event;
-import observer_main_center.event.event_listener.Actionable;
 import observer_main_center.event.event_listener.EventListener;
 import ui.UIProvider;
 
 public class GlobalMenu implements Menu {
     
     private UIProvider ui;
-    private Actionable model;
+    private MainCenterImpl model;
     private RobotSelector selector;
 
-    public GlobalMenu(UIProvider ui, Actionable model, RobotSelector selector) {
+    public GlobalMenu(UIProvider ui, MainCenterImpl model, RobotSelector selector) {
         this.ui = ui;
         this.model = model;
         this.selector = selector;
@@ -34,13 +34,24 @@ public class GlobalMenu implements Menu {
             
             switch (command) {
                 case "add":
+                    CreateRobotMenu creationalMenu = new CreateRobotMenu(ui);
+                    creationalMenu.run();
                     break;
                 
                 case "remove":
-                    EventListener robot = selector.run();
+                    EventListener selected = selector.run();
                     
-                    if (robot != null) {
-                        model.remove(robot);
+                    if (selected != null) {
+                        ui.showMessage("\n--> Borrando robot.");
+                        
+                        if (model.unregister(selected)) {                        
+                            ui.showMessage("\n... Robot borrado correctamente.");
+                            
+                        } else {
+                            ui.showMessage("\n...Error en el borrado.");
+                        }
+                        
+                        ui.showConfirmation();
                     }
                     
                     break;
@@ -54,8 +65,10 @@ public class GlobalMenu implements Menu {
                     
                     for (Event event : events) {
                         if (command.equals(event.getEventInitializer())) {
-                            model.initAction(event);
+                            model.publish(event);
                             found = true;
+                            
+                            ui.showConfirmation();
                             
                             break;
                         }
