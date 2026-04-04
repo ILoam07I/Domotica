@@ -1,0 +1,28 @@
+
+package robot.builder.bridge;
+
+import java.util.List;
+import observer_main_center.event.InitRestEvent;
+import observer_main_center.event.InitVigilanceEvent;
+import observer_main_center.event.NightModeEvent;
+import observer_main_center.event.NormalModeEvent;
+import robot.builder.AbsRobotBuilderImpl;
+import robot.decorator.VigilanceDecorator;
+
+public class PluggedSensorBuilder extends AbsRobotBuilderImpl {
+    
+    @Override
+    public void setEvents() {
+        robot.setEvents(List.of(
+                new NightModeEvent(),
+                new NormalModeEvent(),
+                new InitVigilanceEvent(),
+                new InitRestEvent()));
+    }
+
+    @Override
+    public void addDecorator() {
+        robot = new VigilanceDecorator(robot);
+    }
+    
+}
