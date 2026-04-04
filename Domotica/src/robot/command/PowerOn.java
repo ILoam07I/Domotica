@@ -20,7 +20,7 @@ public class PowerOn extends AbsCommandImpl <PowerDecorator> {
 
     @Override
     public String getActionDescription() {
-        return "Encender.";
+        return "[on] Encender.";
     }
     
 }

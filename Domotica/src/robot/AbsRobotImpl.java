@@ -8,12 +8,12 @@ import robot.command.Command;
 import robot.state.NormalMode;
 import robot.state.State;
 
-public abstract class AbsRobotImpl implements Robot, Comparable <Robot> {
+public abstract class AbsRobotImpl implements Robot {
     
     protected String modelName;
     protected String id;
     protected State robotState;
-    protected List<Event> events;
+    protected List<? extends Event> events;
 
     public AbsRobotImpl() {
         robotState = new NormalMode();
@@ -44,11 +44,11 @@ public abstract class AbsRobotImpl implements Robot, Comparable <Robot> {
     }
 
     @Override
-    public List<Event> getEvents() {
+    public List<? extends Event> getEvents() {
         return events;
     }
     @Override
-    public void setEvents(List<Event> events) {
+    public void setEvents(List<? extends Event> events) {
         this.events = events;
     }
 

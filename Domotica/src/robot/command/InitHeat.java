@@ -20,7 +20,7 @@ public class InitHeat extends AbsCommandImpl <OvenDecorator> {
 
     @Override
     public String getActionDescription() {
-        return "Encender horno.";
+        return "[init_heat] Encender horno.";
     }
     
 }

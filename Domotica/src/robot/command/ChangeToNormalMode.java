@@ -12,7 +12,7 @@ public class ChangeToNormalMode extends AbsCommandImpl {
 
     @Override
     public String getActionDescription() {
-        return "Cambiar a modo Normal.";
+        return "[normal] Cambiar a modo Normal.";
     }
     
 }

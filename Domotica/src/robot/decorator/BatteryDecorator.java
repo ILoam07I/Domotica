@@ -37,13 +37,18 @@ public class BatteryDecorator extends AbsRobotDecoratorImpl {
             
             if (batteryLevel <= TRESHOLD) {
                 batteryStrategy = new SavingUsageBehavior();
+                System.out.println("\t\t!! Bateria baja, activando Ahorro de Bateria.");
             }
             
             wrappee.performAction(command);
-        }       
+        }
+        
+        System.out.println("\t\t!! Bateria muy baja, no se pudo realizar la accion.");
+        charge();
     }
     
     public void charge() {
+        System.out.println("\t\t!! Recargando bateria.");
         batteryLevel = 100;
         batteryStrategy = new NormalUsageBehavior();
     }

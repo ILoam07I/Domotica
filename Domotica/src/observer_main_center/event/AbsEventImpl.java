@@ -1,18 +1,31 @@
 
 package observer_main_center.event;
 
+import java.util.ArrayList;
+import java.util.List;
 import robot.command.Command;
 
-public abstract class AbsEventImpl <C extends Command> implements Event <C> {
+public abstract class AbsEventImpl implements Event {
     
-    protected C command;
+    protected List<? extends Command> commands;
     
-    public AbsEventImpl(C command) {
-        this.command = command;
+    public AbsEventImpl(List<? extends Command> commands) {
+        this.commands = new ArrayList<>(commands);
     }
 
-    public C getCommand() {
-        return command;
+    @Override
+    public List<? extends Command> getCommands() {
+        return commands;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        return this.getClass().equals(o.getClass());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
     
 }

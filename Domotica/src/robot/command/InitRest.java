@@ -20,7 +20,7 @@ public class InitRest extends AbsCommandImpl <VigilanceDecorator> {
 
     @Override
     public String getActionDescription() {
-        return "Activar descanso.";
+        return "[rest] Activar descanso.";
     }
     
 }

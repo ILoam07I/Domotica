@@ -1,7 +1,6 @@
 
-package facade;
+package robot.builder.facade;
 
-import java.util.List;
 import observer_main_center.MainCenter;
 import observer_main_center.MainCenterImpl;
 import observer_main_center.event.Event;
@@ -16,11 +15,11 @@ public class SubscriberFacade {
         hub = MainCenterImpl.getInstance();
     }
     
-    public void subscribe(Robot robot, List<Class<? extends Event>> types) {
+    public void subscribe(Robot robot) {
         RobotAdapter robotListener = new RobotAdapter(robot);
         
-        for (Class<? extends Event> type : types) {
-            hub.register(type, robotListener);
+        for (Event event : robot.getEvents()) {
+            hub.register(event, robotListener);
         }
     }
     

@@ -20,7 +20,7 @@ public class StopHeat extends AbsCommandImpl <OvenDecorator> {
 
     @Override
     public String getActionDescription() {
-        return "Parar horno.";
+        return "[stop_heat] Parar horno.";
     }
     
 }

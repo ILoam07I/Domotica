@@ -20,7 +20,7 @@ public class StopLaundry extends AbsCommandImpl <WashingMachineDecorator> {
 
     @Override
     public String getActionDescription() {
-        return "Parar lavado.";
+        return "[stop_laundry] Parar lavado.";
     }
     
 }

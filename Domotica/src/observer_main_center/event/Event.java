@@ -1,10 +1,15 @@
 
 package observer_main_center.event;
 
+import java.util.List;
 import robot.command.Command;
 
-public interface Event <C extends Command> {
+public interface Event {
     
-    public C getCommand();
+    public List<? extends Command> getCommands();
+    
+    public String getEventDescription();
+    
+    public String getEventInitializer();
     
 }

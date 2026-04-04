@@ -20,7 +20,7 @@ public class PowerOff extends AbsCommandImpl <PowerDecorator> {
 
     @Override
     public String getActionDescription() {
-        return "Apagar.";
+        return "[off] Apagar.";
     }
     
 }

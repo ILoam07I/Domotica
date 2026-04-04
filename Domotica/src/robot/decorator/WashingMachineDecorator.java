@@ -3,6 +3,8 @@ package robot.decorator;
 
 import robot.Robot;
 import robot.command.Command;
+import robot.command.InitLaundry;
+import robot.command.StopLaundry;
 
 public class WashingMachineDecorator extends AbsRobotDecoratorImpl {
     
@@ -15,7 +17,15 @@ public class WashingMachineDecorator extends AbsRobotDecoratorImpl {
 
     @Override
     public void performAction(Command command) {
-        wrappee.performAction(command);
+        if (command.getClass() == InitLaundry.class) {
+            command.execute(this);
+            
+        } else if (command.getClass() == StopLaundry.class) {
+            command.execute(this);
+            
+        } else {        
+            wrappee.performAction(command);
+        }
     }
 
     public boolean isWmlocked() {
@@ -23,16 +33,24 @@ public class WashingMachineDecorator extends AbsRobotDecoratorImpl {
     }
     
     public void initLaundry() {
+        System.out.println("\t--> Empezando lavado " + robotState.getLaundryParam() + robotState.getNoiseParam());
+        
         wmlocked = true;
+        System.out.println("\t\tBloqueando lavadora.");
     }
     
     public void stopLaundry() {
+        System.out.println("\t--> Parando lavado.");
+        
         wmlocked = false;
+        System.out.println("\t\tDesbloqueando lavadora.");
     }
 
     @Override
     public void forceShutOff() {
-        wmlocked = false;
+        if (wmlocked) {
+            stopLaundry();
+        }
         wrappee.forceShutOff();
     }
 

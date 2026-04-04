@@ -3,6 +3,8 @@ package robot.decorator;
 
 import robot.Robot;
 import robot.command.Command;
+import robot.command.InitRest;
+import robot.command.InitVigilance;
 
 public class VigilanceDecorator extends AbsRobotDecoratorImpl {
 
@@ -17,7 +19,15 @@ public class VigilanceDecorator extends AbsRobotDecoratorImpl {
 
     @Override
     public void performAction(Command command) {
-        wrappee.performAction(command);
+        if (command.getClass() == InitVigilance.class) {
+            command.execute(this);
+            
+        } else if (command.getClass() == InitRest.class) {
+            command.execute(this);
+            
+        } else {
+            wrappee.performAction(command);
+        }
     }
 
     public boolean isVigilant() {
@@ -29,11 +39,17 @@ public class VigilanceDecorator extends AbsRobotDecoratorImpl {
     }
     
     public void initVigilanceMode() {
+        System.out.println("\t--> Iniciando modo vigilancia " + robotState.getLaundryParam() + ".");
+        
         vigilant = true;
+        System.out.println("\t\tModo vigilancia activado.");
     }
     
     public void initRestMode() {
+        System.out.println("\t--> Iniciando modo descanso.");
+        
         vigilant = false;
+        System.out.println("\t\tModo descanso activado.");
     }
     
     public void initRecording() {
@@ -46,8 +62,12 @@ public class VigilanceDecorator extends AbsRobotDecoratorImpl {
 
     @Override
     public void forceShutOff() {
-        vigilant = false;
-        recording = false;
+        if (vigilant) {
+            initRestMode();
+        }
+        if (recording) {
+            stopRecording();
+        }
         wrappee.forceShutOff();
     }
 
