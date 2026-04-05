@@ -10,12 +10,18 @@ public class InitHeat extends AbsCommandImpl <OvenDecorator> {
     public void execute(AbsRobotImpl target) {       
         OvenDecorator ovenModule = target.getModule(OvenDecorator.class);
         
-        if (canExecute(ovenModule)) {
-            ovenModule.initHeat();
+        if (ovenModule != null) {
+            
+            if (canExecute(ovenModule)) {
+                ovenModule.initHeat();
+
+            } else {
+                System.out.println("!! Comando " + getActionDescription() + 
+                        " No pudo realizarse en: " + target.toString() + " --> Horno ya Bloqueado.");
+            }
             
         } else {
-            System.out.println("!! Comando " + getActionDescription() + 
-                    " No pudo realizarse en: " + target.toString() + " --> Horno ya Bloqueado.");
+            System.out.println("!! Modulo no encontrado para " + getActionDescription());
         }
     }
 

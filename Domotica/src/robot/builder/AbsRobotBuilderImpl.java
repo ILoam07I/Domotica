@@ -1,6 +1,8 @@
 
 package robot.builder;
 
+import java.util.List;
+import observer_main_center.event.Event;
 import robot.InnerRobot;
 import robot.Robot;
 
@@ -23,5 +25,8 @@ public abstract class AbsRobotBuilderImpl implements RobotBuilder {
     public Robot build() {
         return robot;
     }
+
+    @Override
+    public abstract List<? extends Event> getEvents();
    
 }

@@ -7,13 +7,13 @@ import observer_main_center.MainCenterImpl;
 import observer_main_center.event.event_listener.EventListener;
 import ui.UIProvider;
 
-public class UIApplicationMediator {
+public class UIModelMediator {
     
     private UIProvider ui;
     private MainCenterImpl model;
     private RobotSelector selector;
 
-    public UIApplicationMediator() {
+    public UIModelMediator() {
         ui = new UIProvider();
         model = MainCenterImpl.getInstance();
         selector = new RobotSelector(ui, model);

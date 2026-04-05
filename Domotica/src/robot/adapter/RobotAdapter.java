@@ -1,6 +1,7 @@
 
 package robot.adapter;
 
+import java.util.HashSet;
 import java.util.Set;
 import observer_main_center.event.Event;
 import observer_main_center.event.event_listener.EventListener;
@@ -10,9 +11,11 @@ import robot.command.Command;
 public class RobotAdapter implements EventListener {
     
     private Robot robot;
+    private Set<? extends Event> events;
 
-    public RobotAdapter(Robot robot) {
+    public RobotAdapter(Robot robot, Set<? extends Event> events) {
         this.robot = robot;
+        this.events = new HashSet<>(events);
     }
 
     @Override
@@ -22,20 +25,17 @@ public class RobotAdapter implements EventListener {
 
     @Override
     public <E extends Event> void actualize(E event) {
-        
-        if (robot.getEvents().contains(event)) {
-            System.out.println(robot.toString() + "  -- Iniciando acciones: ");
+        System.out.println(robot.toString() + "  -- Iniciando acciones: ");
 
-            for (Command command : event.getCommands()) {
-                
-                robot.performAction(command);
-            }
+        for (Command command : event.getCommands()) {
+
+            robot.performAction(command);
         }
     }
 
     @Override
     public Set<? extends Event> getActions() {
-        return Set.copyOf(robot.getEvents());
+        return events;
     }
     
     @Override

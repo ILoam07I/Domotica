@@ -3,6 +3,7 @@ package robot.builder.bridge;
 
 import java.util.List;
 import observer_main_center.event.EcoModeEvent;
+import observer_main_center.event.Event;
 import observer_main_center.event.InitLaundryEvent;
 import observer_main_center.event.NightModeEvent;
 import observer_main_center.event.NormalModeEvent;
@@ -16,15 +17,15 @@ import robot.decorator.WashingMachineDecorator;
 public class SmartWashingMachineBuilder extends AbsRobotBuilderImpl {
 
     @Override
-    public void setEvents() {
-        robot.setEvents(List.of(
+    public List<? extends Event> getEvents() {
+        return List.of(
                 new NightModeEvent(),
                 new EcoModeEvent(),
                 new NormalModeEvent(),
                 new PowerOnEvent(),
                 new PowerOffEvent(),
                 new InitLaundryEvent(),
-                new StopLaundryEvent()));
+                new StopLaundryEvent());
     }
 
     @Override

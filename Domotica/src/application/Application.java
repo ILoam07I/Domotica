@@ -1,7 +1,7 @@
 
 package application;
 
-import application.mediator.UIApplicationMediator;
+import application.mediator.UIModelMediator;
 import robot.builder.Director;
 import robot.builder.bridge.PluggedSensorBuilder;
 import robot.builder.bridge.SmartOvenBuilder;
@@ -13,7 +13,7 @@ import robot.builder.bridge.SmartWashingMachineBuilder;
 public class Application {
 
     public static void main(String[] args) {
-        UIApplicationMediator uiMediator = new UIApplicationMediator();
+        UIModelMediator uiMediator = new UIModelMediator();
         
         test();
         

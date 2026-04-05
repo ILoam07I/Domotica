@@ -1,8 +1,6 @@
 
 package robot;
 
-import java.util.List;
-import observer_main_center.event.Event;
 import robot.command.Command;
 import robot.decorator.AbsRobotDecoratorImpl;
 import robot.state.State;
@@ -14,9 +12,6 @@ public interface Robot extends Comparable<Robot> {
     
     public String getId();
     public void setId(String id);
-    
-    public List<? extends Event> getEvents();
-    public void setEvents(List<? extends Event> getEvents);
     
     public <M extends AbsRobotDecoratorImpl> void addModule(M module);
     

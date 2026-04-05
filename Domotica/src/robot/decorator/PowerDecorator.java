@@ -50,11 +50,14 @@ public class PowerDecorator extends AbsRobotDecoratorImpl {
 
     @Override
     public void forceShutOff() {
-        System.out.print("\t--> Iniciando secuencia de apagado.");
-        pauseWithDots();
-        
-        powered = false;
-        wrappee.forceShutOff();
+        //Esta comprobación es necesaria por MainCenterImpl.
+        if (powered) {
+            System.out.print("\t--> Iniciando secuencia de apagado.");
+            pauseWithDots();
+
+            powered = false;
+            wrappee.forceShutOff();
+        }
     }
     
     @Override

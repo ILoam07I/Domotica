@@ -16,12 +16,10 @@ public abstract class AbsRobotImpl implements Robot {
     protected String modelName;
     protected String id;
     protected State robotState;
-    protected List<? extends Event> events;
     protected Map<Class<? extends AbsRobotDecoratorImpl>, AbsRobotDecoratorImpl> modules;
 
     public AbsRobotImpl() {
         robotState = new NormalMode();
-        events = new ArrayList<>();
         modules = new HashMap<>();
     }
 
@@ -49,22 +47,19 @@ public abstract class AbsRobotImpl implements Robot {
     }
 
     @Override
-    public List<? extends Event> getEvents() {
-        return events;
-    }
-    @Override
-    public void setEvents(List<? extends Event> events) {
-        this.events = events;
-    }
-
-    @Override
     public <M extends AbsRobotDecoratorImpl> void addModule(M module) {
         modules.put(module.getClass(), module);
     }
 
     @Override
     public <M extends AbsRobotDecoratorImpl> M getModule(Class<M> type) {
-        return type.cast(modules.get(type));
+        AbsRobotDecoratorImpl module = modules.get(type);
+        
+        if (module == null) {
+            return null;
+        }
+        
+        return type.cast(module);
     }
 
     @Override

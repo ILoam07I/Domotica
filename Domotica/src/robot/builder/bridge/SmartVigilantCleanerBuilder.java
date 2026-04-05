@@ -3,6 +3,7 @@ package robot.builder.bridge;
 
 import java.util.List;
 import observer_main_center.event.EcoModeEvent;
+import observer_main_center.event.Event;
 import observer_main_center.event.InitRestEvent;
 import observer_main_center.event.InitVigilanceEvent;
 import observer_main_center.event.NightModeEvent;
@@ -17,15 +18,15 @@ import robot.decorator.VigilanceDecorator;
 public class SmartVigilantCleanerBuilder extends AbsRobotBuilderImpl {
 
     @Override
-    public void setEvents() {
-        robot.setEvents(List.of(
+    public List<? extends Event> getEvents() {
+        return List.of(
                 new NightModeEvent(),
                 new EcoModeEvent(),
                 new NormalModeEvent(),
                 new PowerOnEvent(),
                 new PowerOffEvent(),
                 new InitVigilanceEvent(),
-                new InitRestEvent()));
+                new InitRestEvent());
     }
 
     @Override

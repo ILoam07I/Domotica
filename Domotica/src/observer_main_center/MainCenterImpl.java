@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -45,6 +46,7 @@ public class MainCenterImpl implements MainCenter, EventListenerContainer, Actio
         return added;
     }
 
+    @Override
     public boolean unregister(EventListener robot) {
         boolean removed = robots.remove(robot);
         
@@ -52,8 +54,18 @@ public class MainCenterImpl implements MainCenter, EventListenerContainer, Actio
             System.out.println(robot.toString());
             robot.getRobot().forceShutOff();
 
-            for (List<EventListener> values : listeners.values()) {
-                values.remove(robot);
+            //Eliminamos la key si queda vacía para quitarla de eventos lanzables.
+            Iterator<Map.Entry<Event, List<EventListener>>> it = listeners.entrySet().iterator();
+
+            while (it.hasNext()) {
+                Map.Entry<Event, List<EventListener>> entry = it.next();
+
+                List<EventListener> list = entry.getValue();
+                list.remove(robot);
+
+                if (list.isEmpty()) {
+                    it.remove();
+                }
             }
         }
         

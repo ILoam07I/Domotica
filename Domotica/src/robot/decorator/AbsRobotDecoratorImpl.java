@@ -70,11 +70,6 @@ public abstract class AbsRobotDecoratorImpl extends AbsRobotImpl {
     }
 
     @Override
-    public List<? extends Event> getEvents() {
-        return wrappee.getEvents();
-    }   
-
-    @Override
     public String describe() {
         return wrappee.describe();
     }

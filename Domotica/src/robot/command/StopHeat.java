@@ -10,12 +10,18 @@ public class StopHeat extends AbsCommandImpl <OvenDecorator> {
     public void execute(AbsRobotImpl target) {
         OvenDecorator module = target.getModule(OvenDecorator.class);
                 
-        if (canExecute(module)) {
-            module.stopHeat();
+        if (module != null) {
+            
+            if (canExecute(module)) {
+                module.stopHeat();
+
+            } else {
+                System.out.println("!! Comando " + getActionDescription() + 
+                        " No pudo realizarse en: " + target.toString() + " --> Horno ya Desbloqueado.");
+            }
             
         } else {
-            System.out.println("!! Comando " + getActionDescription() + 
-                    " No pudo realizarse en: " + target.toString() + " --> Horno ya Desbloqueado.");
+            System.out.println("!! Modulo no encontrado para " + getActionDescription());
         }
     }
 

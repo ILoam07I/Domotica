@@ -10,12 +10,18 @@ public class PowerOn extends AbsCommandImpl <PowerDecorator> {
     public void execute(AbsRobotImpl target) {
         PowerDecorator module = target.getModule(PowerDecorator.class);
         
-        if (canExecute(module)) {
-            module.turnOn();
+        if (module != null) {
+            
+            if (canExecute(module)) {
+                module.turnOn();
+
+            } else {
+                System.out.println("!! Comando " + getActionDescription() + 
+                        " No pudo realizarse en: " + target.toString() + " --> Ya Encendido.");
+            }
             
         } else {
-            System.out.println("!! Comando " + getActionDescription() + 
-                    " No pudo realizarse en: " + target.toString() + " --> Ya Encendido.");
+            System.out.println("!! Modulo no encontrado para " + getActionDescription());
         }
     }
 

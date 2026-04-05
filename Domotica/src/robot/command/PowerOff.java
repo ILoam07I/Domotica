@@ -10,12 +10,17 @@ public class PowerOff extends AbsCommandImpl <PowerDecorator> {
     public void execute(AbsRobotImpl target) {
         PowerDecorator module = target.getModule(PowerDecorator.class);
         
-        if (canExecute(module)) {
-            module.forceShutOff();
+        if (module != null) {
+            if (canExecute(module)) {
+                module.forceShutOff();
+
+            } else {
+                System.out.println("!! Comando " + getActionDescription() + 
+                        " No pudo realizarse en: " + target.toString() + " --> Ya Apagado.");
+            }
             
         } else {
-            System.out.println("!! Comando " + getActionDescription() + 
-                    " No pudo realizarse en: " + target.toString() + " --> Ya Apagado.");
+            System.out.println("!! Modulo no encontrado para " + getActionDescription());
         }
     }
 

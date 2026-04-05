@@ -10,12 +10,17 @@ public class InitVigilance extends AbsCommandImpl <VigilanceDecorator> {
     public void execute(AbsRobotImpl target) {
         VigilanceDecorator module = target.getModule(VigilanceDecorator.class);
         
-        if (canExecute(module)) {
-            module.initVigilanceMode();
+        if (module != null) {
+            if (canExecute(module)) {
+                module.initVigilanceMode();
+
+            } else {
+                System.out.println("!! Comando " + getActionDescription() + 
+                        " No pudo realizarse en: " + target.toString() + " --> Ya en Modo Vigilancia.");
+            }
             
         } else {
-            System.out.println("!! Comando " + getActionDescription() + 
-                    " No pudo realizarse en: " + target.toString() + " --> Ya en Modo Vigilancia.");
+            System.out.println("!! Modulo no encontrado para " + getActionDescription());
         }
     }
 

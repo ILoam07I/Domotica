@@ -10,12 +10,17 @@ public class InitLaundry extends AbsCommandImpl <WashingMachineDecorator> {
     public void execute(AbsRobotImpl target) {
         WashingMachineDecorator module = target.getModule(WashingMachineDecorator.class);
         
-        if (canExecute(module)) {
-            module.initLaundry();
+        if (module != null) {
             
+            if (canExecute(module)) {
+                module.initLaundry();
+
+            } else {
+                System.out.println("!! Comando " + getActionDescription() + 
+                        " No pudo realizarse en: " + target.toString() + " --> Lavadora ya Bloqueada.");
+            }
         } else {
-            System.out.println("!! Comando " + getActionDescription() + 
-                    " No pudo realizarse en: " + target.toString() + " --> Lavadora ya Bloqueada.");
+            System.out.println("!! Modulo no encontrado para " + getActionDescription());
         }
     }
 

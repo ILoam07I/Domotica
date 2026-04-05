@@ -37,10 +37,9 @@ public class Director <B extends RobotBuilder> {
     public boolean buildRobot(String model, String id) {        
         builder.reset();
         builder.setCredentials(model, id);
-        builder.setEvents();
         builder.addDecorator();
         
-        return subscriber.subscribe(builder.build());
+        return subscriber.subscribe(builder.build(), builder.getEvents());
     }
     
 }
