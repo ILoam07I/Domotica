@@ -1,8 +1,6 @@
 
 package robot.decorator;
 
-import java.util.List;
-import observer_main_center.event.Event;
 import robot.AbsRobotImpl;
 import robot.Robot;
 import robot.command.Command;

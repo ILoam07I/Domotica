@@ -29,7 +29,7 @@ public class VigilanceDecorator extends AbsRobotDecoratorImpl {
     }
     
     public void initVigilanceMode() {
-        System.out.print("\t--> Iniciando modo vigilancia " + robotState.getLaundryParam() + ".");
+        System.out.print("\t--> Iniciando modo vigilancia " + this.getRobotState().getLaundryParam() + ".");
         pauseWithDots();
         
         vigilant = true;

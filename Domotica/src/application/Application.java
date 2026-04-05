@@ -21,7 +21,7 @@ public class Application {
     }
     
     public static void test() {
-        //Test de prueba para crear y registrar algunos robots:
+        //Test de prueba para crear y registrar algunos robots (se puede quitar):
         Director dir = new Director(PluggedSensorBuilder::new);
         dir.buildRobot("Prueba1: Sensor", "PS1");
         

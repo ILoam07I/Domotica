@@ -23,7 +23,7 @@ public class WashingMachineDecorator extends AbsRobotDecoratorImpl {
     }
     
     public void initLaundry() {
-        System.out.print("\t--> Empezando lavado " + this.getRobotState().getLaundryParam() + robotState.getNoiseParam());
+        System.out.print("\t--> Empezando lavado " + this.getRobotState().getLaundryParam() + this.getRobotState().getNoiseParam());
         pauseWithDots();
         
         wmlocked = true;
